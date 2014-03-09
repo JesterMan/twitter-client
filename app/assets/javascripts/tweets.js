@@ -1,13 +1,21 @@
 var template = JST["tweet"],
 	summaryTemplate = JST["summary"],
 	otherSummaryTemplate = JST["otherSummary"],
-	localTemplate = JST["location"];
+	localTemplate = JST["location"],
+	options = {
+  		valueNames: [ 'name', 
+  					'retweeted', 
+  					'created', 
+  					'followers', 
+  					'influence' ]
+		};
 	
 
 function startPage(){
 	window.myTweets = new Tweets();
 	window.myTweets.fetch();
 	new TwitterView({collection: window.myTweets});
+
 }
 
 var TwitterView = Backbone.View.extend({
@@ -17,11 +25,15 @@ var TwitterView = Backbone.View.extend({
 		this.collection.on('reset', this.render, this)
 	},
 
-	render: function() {
-		this.$el.html('');
+	// render: function() {
+	// 	this.$el.html('');
+	// 	this.$el.append.append("<div id='users' class='btn-group'></div>");
+	// 	$.each(options.valueNames, function(key, something){
+	// 		$("#users").append("<button class='sort btn btn-default' data-sort='"+something+"'>Sort by "+something+"</button>");
+	// 	});
 	
-		this.$el.append('<div class="list"><div>');
-		this.$el.append('<div id="sideBar"><div id="retweets"></div><div id="followers"></div><div id="locations"></div></div>');
+	// 	this.$el.append('<div class="list"><div>');
+	// 	this.$el.append('<div id="sideBar"><div id="retweets"></div><div id="followers"></div><div id="locations"></div></div>');
  	
 		//do for loop then do each after for works, iterate through models of collection
 		// for (var i = 0; i < this.collection.length; i++) {
