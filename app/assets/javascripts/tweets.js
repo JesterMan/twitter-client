@@ -2,6 +2,7 @@ var template = JST["tweet"],
 	summaryTemplate = JST["summary"],
 	otherSummaryTemplate = JST["otherSummary"],
 	localTemplate = JST["location"],
+
 	options = {
   		valueNames: [ 'name', 
   					'retweeted', 
@@ -10,6 +11,10 @@ var template = JST["tweet"],
   					'influence' ]
 		};
 	
+$('.container').append("<div id='users' class='btn-group'></div>");
+		$.each(options.valueNames, function(key, something){
+			$("#users").append("<button class='sort btn btn-default' data-sort='"+something+"'>Sort by "+something+"</button>");
+		});
 
 function startPage(){
 	window.myTweets = new Tweets();
@@ -25,15 +30,16 @@ var TwitterView = Backbone.View.extend({
 		this.collection.on('reset', this.render, this)
 	},
 
-	// render: function() {
-	// 	this.$el.html('');
-	// 	this.$el.append.append("<div id='users' class='btn-group'></div>");
-	// 	$.each(options.valueNames, function(key, something){
-	// 		$("#users").append("<button class='sort btn btn-default' data-sort='"+something+"'>Sort by "+something+"</button>");
-	// 	});
+	render: function() {
+		this.$el.html('');
+		this.$el.append("<div id='buttons' class='btn-group'></div>");
+		$.each(options.valueNames, function(key, something){
+			$("#buttons").append("<button class='sort btn btn-default' data-sort='"+something+"'>Sort by "+something+"</button>");
+		});
+		$('#buttons').append("<button class='sort btn btn-default' href='/logout'>Logout</button>");
 	
-	// 	this.$el.append('<div class="list"><div>');
-	// 	this.$el.append('<div id="sideBar"><div id="retweets"></div><div id="followers"></div><div id="locations"></div></div>');
+		this.$el.append('<ul class="list"></ul>');
+		this.$el.append('<div id="sideBar"><div id="retweets"></div><div id="followers"></div><div id="locations"></div></div>');
  	
 		//do for loop then do each after for works, iterate through models of collection
 		// for (var i = 0; i < this.collection.length; i++) {
@@ -43,14 +49,7 @@ var TwitterView = Backbone.View.extend({
 
 
 
-		//jquery each
-		// $(this.collection.models).each( function(index, twitterStuff) {
-		// 	debugger
-			
-
-		//underscore each
-		// 	$('.list').append(template({status: twitterStuff.toJSON()}));
-		// });
+		
 
 		// list tweet summaries
 		_.each(this.collection.models, function(twitterStuff, index, list){
@@ -99,7 +98,10 @@ var TwitterView = Backbone.View.extend({
 				else{
 					locationList[locale]+=1
 				}
+
 		});
+
+		var userList = new List('users', options);
 		function locationPreperation (){
 			$.each(locationList, function(area, count){
 				locationForTemplate.push({
@@ -120,6 +122,7 @@ var TwitterView = Backbone.View.extend({
 
 
 	el: '.container'
+
 
 });
 

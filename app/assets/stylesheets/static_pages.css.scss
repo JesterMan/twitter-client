@@ -7,14 +7,16 @@ background-color: #047060;
 }
 .container{
     width: 100%;
+    margin-right: 0px !important;
 }
  .list, #users {
  float:left;
  width: 900px;
 }
 #sideBar{
-  color: white;
+  color: #839595;
   overflow: hidden;
+  width: 200px;
 }
 .rt, .fl, .lc {
   background-color: #950f31;

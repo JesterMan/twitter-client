@@ -16,10 +16,12 @@
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
+//= require list.min
 //= require_tree ./models
 //= require_tree ./views
 //= require_tree ../templates
 //= require tweets
+//= require bootstrap.min
 
 
 $(document).ajaxSend(function (e, xhr, options) {
